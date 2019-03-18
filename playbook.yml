@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    venv_path: /webapps/devops/venv
+    requirements_path: /devops/requirements.txt
+  roles:
+    - {role: install_flask_app}

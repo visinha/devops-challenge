@@ -1,0 +1,24 @@
+- name: install git
+  yum: name=git state=installed
+
+- name: Download pip
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp/get-pip.py
+    mode: 0755
+
+- name: Install pip
+  command: python /tmp/get-pip.py
+  register: status
+
+- name: install flask with pip
+  pip: name=flask
+
+- name: Download devops-challenge Git repo
+  git:
+    repo: https://bitbucket.org/azneita/devops-challenge.git
+    dest: /home/vagrant/devops-challenge
+
+- name: start flask app in background
+  shell: cd /home/vagrant/devops-challenge; nohup ./app.py 2>&1 &
+
